@@ -17,4 +17,5 @@ victorOrigin = '41.980262,-87.668452'
 bingmapsAPIkey = 'Ao9ah3QkRfnF1HH3K2OFLwhEXUHijpLe0Jtos_vLelRzXBGc4eo9yKZVPoXhfMXV'
 mapsUrl = f'https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins={originsJoin}&destinations={victorOrigin}&travelMode=driving&key={bingmapsAPIkey}'
 res0 = requests.get(mapsUrl).json()
-print(json.dumps(res0))
+
+pprint(json.dumps(res0, indent=4))
