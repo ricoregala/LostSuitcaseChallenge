@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as ET
-import requests, threading, json
+import requests, threading, json, os
 from pprint import pprint as pprint
+from dotenv import load_dotenv
+load_dotenv()
 
 #Parse API to get ID and Destination and only select buses with northbound route
 root = ET.fromstring(requests.get('http://ctabustracker.com/bustime/map/getBusesForRoute.jsp?route=22').text)
@@ -14,8 +16,8 @@ originsJoin = ";".join(str(p) for p in arrlatlonJoined)
 
 #Use originsJoin and input it in bing maps
 victorOrigin = '41.980262,-87.668452'
-bingmapsAPIkey = 'Ao9ah3QkRfnF1HH3K2OFLwhEXUHijpLe0Jtos_vLelRzXBGc4eo9yKZVPoXhfMXV'
-mapsUrl = f'https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins={originsJoin}&destinations={victorOrigin}&travelMode=driving&key={bingmapsAPIkey}'
+APIkey = os.getenv('bingapiKey')
+mapsUrl = f'https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?origins={originsJoin}&destinations={victorOrigin}&travelMode=driving&key={APIkey}'
 res0 = requests.get(mapsUrl).json()
-
-pprint(json.dumps(res0, indent=4))
+print(res0)
+# pprint(json.dumps(res0, indent=4))
