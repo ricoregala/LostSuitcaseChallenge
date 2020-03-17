@@ -5761,10 +5761,23 @@ cccc = '''
 '''
 
 patternResponse = json.loads(cccc)
-indexofbustoNorthbound = [i for i in range(len(patternResponse['bustime-response']['ptr'])) if patternResponse['bustime-response']['ptr'][i]['rtdir'] == 'Northbound']
-patternLength = [patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[l]]['ln'] for l in range(len(indexofbustoNorthbound))]
-pidValues = [patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[l]]['pid'] for l in range(len(indexofbustoNorthbound))]
-getsequencePatternLat = [[patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt'][j]['lat'] for j in range(len(patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt']))] for k in range(len(indexofbustoNorthbound))]
-getsequencePatternLon = [[patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt'][j]['lon'] for j in range(len(patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt']))] for k in range(len(indexofbustoNorthbound))]
-a = [len(getsequencePatternLat[0]),len(getsequencePatternLat[1]),len(getsequencePatternLon[0]),len(getsequencePatternLon[1])]
+# Using the List Comprehension syntax to shorten the code, get the index of Northbound Routes.
+indexofnorthboundRoutes = [i for i in range(len(patternResponse['bustime-response']['ptr'])) if patternResponse['bustime-response']['ptr'][i]['rtdir'] == 'Northbound']
+# Using the List Comprehension syntax to shorten the code, get the total distance of each routes denoted in feet.
+patternLength = [patternResponse['bustime-response']['ptr'][indexofnorthboundRoutes[l]]['ln'] for l in range(len(indexofnorthboundRoutes))]
+# Using the List Comprehension syntax to shorten the code, get the pattern IDs of Northbound Routes
+pidValues = [patternResponse['bustime-response']['ptr'][indexofnorthboundRoutes[l]]['pid'] for l in range(len(indexofnorthboundRoutes))]
+# Using the List Comprehension syntax to shorten the code, create a list for each route a list of latitudes 
+getsequencePatternLat = [[patternResponse['bustime-response']['ptr'][indexofnorthboundRoutes[k]]['pt'][j]['lat'] for j in range(len(patternResponse['bustime-response']['ptr'][indexofnorthboundRoutes[k]]['pt']))] for k in range(len(indexofnorthboundRoutes))]
+# Using the List Comprehension syntax to shorten the code, create a list for each route a list of longitudes
+getsequencePatternLon = [[patternResponse['bustime-response']['ptr'][indexofnorthboundRoutes[k]]['pt'][j]['lon'] for j in range(len(patternResponse['bustime-response']['ptr'][indexofnorthboundRoutes[k]]['pt']))] for k in range(len(indexofnorthboundRoutes))]
+# Test if all lengths are the same
+a = bool(len(getsequencePatternLat[0]) == len(getsequencePatternLon[0]) and len(getsequencePatternLat[1]) == len(getsequencePatternLon[1]))
 print(a)
+
+
+# References Used:
+# https://stackoverflow.com/questions/21507319/python-list-comprehension-list-of-lists
+# https://stackoverflow.com/questions/51963942/python-list-comprehension-with-list-of-lists
+# https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions
+# https://www.geeksforgeeks.org/python-map-function/
