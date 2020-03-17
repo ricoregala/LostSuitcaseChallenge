@@ -5765,5 +5765,6 @@ indexofbustoNorthbound = [i for i in range(len(patternResponse['bustime-response
 patternLength = [patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[l]]['ln'] for l in range(len(indexofbustoNorthbound))]
 pidValues = [patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[l]]['pid'] for l in range(len(indexofbustoNorthbound))]
 getsequencePatternLat = [[patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt'][j]['lat'] for j in range(len(patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt']))] for k in range(len(indexofbustoNorthbound))]
-getsequencePatternLon = []
-print(getsequencePatternLat)
+getsequencePatternLon = [[patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt'][j]['lon'] for j in range(len(patternResponse['bustime-response']['ptr'][indexofbustoNorthbound[k]]['pt']))] for k in range(len(indexofbustoNorthbound))]
+a = [len(getsequencePatternLat[0]),len(getsequencePatternLat[1]),len(getsequencePatternLon[0]),len(getsequencePatternLon[1])]
+print(a)
